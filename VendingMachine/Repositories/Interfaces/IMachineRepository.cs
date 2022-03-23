@@ -5,5 +5,6 @@ namespace VendingMachine.Repositories.Interfaces
     public interface IMachineRepository
     {
         Task<IEnumerable<Machine>> FindMachineInLocationId(string locationId);
+        Task<IEnumerable<Machine>> GetMachinesAsync();
     }
 }

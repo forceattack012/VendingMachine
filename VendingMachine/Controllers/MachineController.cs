@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
 using VendingMachine.Repositories.Interfaces;
 
 namespace VendingMachine.Controllers
@@ -12,6 +13,14 @@ namespace VendingMachine.Controllers
         public MachineController(IMachineRepository machineRepository)
         {
             _machineRepository = machineRepository;
+        }
+
+
+        [HttpGet]
+        public async Task<IActionResult> GetMachines()
+        {
+            var result = await _machineRepository.GetMachinesAsync();
+            return Ok(result);
         }
 
         [HttpGet("{locationId}")]

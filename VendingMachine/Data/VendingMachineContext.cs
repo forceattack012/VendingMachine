@@ -13,6 +13,7 @@ namespace VendingMachine.Data
         public DbSet<Location> Locations { get; set; }
         public DbSet<Machine> Machines { get; set; }
         public DbSet<Product> Products { get; set; }
+        public DbSet<MachineInventory> MachineInventory { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -56,77 +56,88 @@ namespace VendingMachine.Data
                     LocationId = "3"
                 }
             );
+            modelBuilder.Entity<MachineInventory>().HasData(
+                new MachineInventory()
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    MachineId = "1",
+                    ProductId = "P1",
+                    Quality = 12
+                },
+                new MachineInventory()
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    MachineId = "1",
+                    ProductId = "P2",
+                    Quality = 10
+                },
+                new MachineInventory()
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    MachineId = "1",
+                    ProductId = "C1",
+                    Quality = 20
+                },
+                new MachineInventory()
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    MachineId = "1",
+                    ProductId = "C2",
+                    Quality = 14
+                },
+                new MachineInventory()
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    MachineId = "2",
+                    ProductId = "C2",
+                    Quality = 11
+                },
+                new MachineInventory()
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    MachineId = "3",
+                    ProductId = "C1",
+                    Quality = 11
+                },
+                new MachineInventory()
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    MachineId = "3",
+                    ProductId = "P1",
+                    Quality = 10
+                },
+                new MachineInventory()
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    MachineId = "4",
+                    ProductId = "P1",
+                    Quality = 12
+                }
+            );
             modelBuilder.Entity<Product>().HasData(
                 new Product()
                 {
-                    Id = Guid.NewGuid(),
+                    Id = "P1",
                     Name = "Coke",
-                    Price = 20,
-                    MachineId = "1",
-                    Quality = 20
+                    Price = 20
                 },
                 new Product()
                 {
-                    Id = Guid.NewGuid(),
+                    Id = "P2",
                     Name = "Pepsi",
                     Price = 10,
-                    MachineId = "1",
-                    Quality = 20
                 },
                 new Product()
                 {
-                    Id = Guid.NewGuid(),
+                    Id = "C1",
                     Name = "Coffee",
                     Price = 60,
-                    MachineId = "1",
-                    Quality = 20
                 },
                 new Product()
                 {
-                    Id = Guid.NewGuid(),
-                    Name = "Coke",
-                    MachineId = "2",
-                    Quality = 20
-                },
-                new Product()
-                {
-                    Id = Guid.NewGuid(),
-                    Price = 10,
-                    Name = "Pepsi",
-                    MachineId = "2",
-                    Quality = 20
-                },
-                new Product()
-                {
-                    Id = Guid.NewGuid(),
-                    Price = 10,
-                    Name = "Pepsi",
-                    MachineId = "3",
-                    Quality = 30
-                },
-                new Product()
-                {
-                    Id = Guid.NewGuid(),
-                    Name = "Pepsi",
-                    Price = 10,
-                    MachineId = "4",
-                    Quality = 11
-                },
-                new Product()
-                {
-                    Id = Guid.NewGuid(),
-                    Name = "Coffee",
-                    Price = 60,
-                    MachineId = "4",
-                    Quality = 12
-                },
-                new Product()
-                {
-                    Id = Guid.NewGuid(),
-                    Price = 60,
-                    Name = "Coffee",
-                    MachineId = "5",
-                    Quality = 10
+                    Id = "C2",
+                    Name = "Beer",
+                    Price = 100
                 }
             );
         }

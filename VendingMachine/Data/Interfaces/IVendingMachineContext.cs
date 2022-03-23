@@ -7,6 +7,7 @@ namespace VendingMachine.Data.Interfaces
     {
         public DbSet<Location> Locations { get; }
         public DbSet<Machine> Machines { get; }
-        public DbSet<Product> Products { get;  }
+        public DbSet<Product> Products { get; }
+        public DbSet<MachineInventory> MachineInventory { get; }
     }
 }

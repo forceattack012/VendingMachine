@@ -19,5 +19,10 @@ namespace VendingMachine.Repositories
             return await _vendingMachineContext.Machines.Where(r => r.LocationId == locationId)
                     .Include(r => r.Location).ToListAsync();
         }
+
+        public async Task<IEnumerable<Machine>> GetMachinesAsync()
+        {
+            return await _vendingMachineContext.Machines.ToListAsync();
+        }
     }
 }

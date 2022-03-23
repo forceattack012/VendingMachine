@@ -18,6 +18,7 @@ builder.Services.AddDbContext<VendingMachineContext>(opt => opt.UseNpgsql(connec
 builder.Services.AddScoped<IVendingMachineContext, VendingMachineContext>();
 builder.Services.AddScoped<ILocationRepository, LocationRepository>();
 builder.Services.AddScoped<IMachineRepository, MachineRepository>();
+builder.Services.AddScoped<IMachineInventoryRepository, MachineInventoryRepository>();
 
 var app = builder.Build();
 
