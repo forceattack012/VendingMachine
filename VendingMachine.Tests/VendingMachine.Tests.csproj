@@ -7,4 +7,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Senarios\" />
+    <Folder Include="UnitTests\Repositories\" />
+  </ItemGroup>
+
 </Project>
