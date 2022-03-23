@@ -35,10 +35,13 @@ namespace VendingMachine.Controllers
             return Ok(response);
         }
 
-        [HttpGet]
+        [HttpGet("{machineId}")]
         public async Task<IActionResult> GetInvertoryByMachineId([Required]string machineId)
         {
             var result = await _machineRepository.GetMachineInventoriesByMachineIdAsync(machineId);
+
+            if(!result.Any()) return NotFound();
+
             var response = result.Select(r => new MachineInventoryResponse()
             {
                 InventoryId = r.Id,
