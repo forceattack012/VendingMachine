@@ -19,7 +19,7 @@ export class ProductService {
   }
 
   async getInventoryByMachineId(machineId: string): Promise<MachineInventory[]> {
-    return this.httpClient.get<MachineInventory[]>(`${this.baseUrl}api/MachineInventory/${machineId}`).toPromise();
+    return this.httpClient.get<MachineInventory[]>(`/api/MachineInventory/${machineId}`).toPromise();
   }
 
 
