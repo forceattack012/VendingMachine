@@ -10,13 +10,15 @@ import { AuthenService } from 'src/app/services/authen.service';
 export class HeaderComponent implements OnInit {
 
   user: any;
+  message: any;
 
   constructor(private adminHubService: AdminHubService, private authenService: AuthenService) { }
 
   ngOnInit(): void {
     this.user = this.authenService.decodeToken();
     const hubConnection = this.adminHubService.startConnection();
-    hubConnection?.on('notificationAdmin' , (result) => {
+    hubConnection.on('notificationAdmin' , (result) => {
+      this.message = result;
       console.log(result);
     });
   }

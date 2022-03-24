@@ -25,7 +25,8 @@ import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
     ProductComponent,
     HeaderComponent,
     BuyComponent,
-    LoginComponent
+    LoginComponent,
+    DashboardComponent
   ],
   imports: [
     CommonModule,

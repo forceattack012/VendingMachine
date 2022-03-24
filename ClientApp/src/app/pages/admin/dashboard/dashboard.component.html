@@ -4,44 +4,32 @@
       <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
           <tr>
               <th scope="col" class="px-6 py-3">
-                  Machine Id
+                  Location Id
+              </th>
+              <th scope="col" class="px-6 py-3">
+                  Location Name
               </th>
               <th scope="col" class="px-6 py-3">
                   Machine Name
-              </th>
-              <th scope="col" class="px-6 py-3">
-                  Product Name
-              </th>
-              <th scope="col" class="px-6 py-3">
-                  Price
-              </th>
-              <th scope="col" class="px-6 py-3">
-                  Quality
               </th>
               <th scope="col" class="px-6 py-3">
                   <span class="sr-only">Buy</span>
               </th>
           </tr>
       </thead>
-      <tbody *ngIf="inventories">
-          <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600" *ngFor="let item of inventories">
+      <tbody *ngIf="machineAllLocations">
+          <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600" *ngFor="let item of machineAllLocations">
             <th scope="row" class="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">
-                {{item.machineId}}
+              {{item.locationId}}
             </th>
+            <td class="px-6 py-4">
+                {{item.locationName}}
+            </td>
             <td class="px-6 py-4">
                 {{item.machineName}}
             </td>
-            <td class="px-6 py-4">
-              {{item.productName}}
-            </td>
-            <td class="px-6 py-4">
-                {{item.price}}
-            </td>
-            <td class="px-6 py-4">
-                {{item.quatity}}
-            </td>
             <td class="px-6 py-4 text-right">
-                <a *ngIf="IsBuy()" href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Buy</a>
+                <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
             </td>
           </tr>
       </tbody>

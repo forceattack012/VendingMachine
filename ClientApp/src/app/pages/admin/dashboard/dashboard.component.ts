@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MachineLocation } from 'src/app/models/machineLocation';
+import { MachineService } from 'src/app/services/machine.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -7,9 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor() { }
+  machineAllLocations : MachineLocation[] = [];
 
-  ngOnInit(): void {
+  constructor(private machineService: MachineService) { }
+
+  async ngOnInit(): Promise<void> {
+    this.machineAllLocations = await this.machineService.getMachineAllLocation();
   }
 
 }
