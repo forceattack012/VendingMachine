@@ -140,6 +140,52 @@ namespace VendingMachine.Data
                     Price = 100
                 }
             );
+
+            modelBuilder.Entity<User>().HasData(
+                new User()
+                {
+                    Id = "1",
+                    UserName = "abcd1234@gmail.com",
+                    Password = "1234",
+                    RoleId = 1,
+                },
+                new User()
+                {
+                    Id = "2",
+                    UserName = "user@gmail.com",
+                    Password = "1234",
+                    RoleId = 1
+                },
+                new User()
+                {
+                    Id = "3",
+                    UserName = "admin1@gmail.com",
+                    Password = "admin1",
+                    RoleId = 2
+                },
+                new User()
+                {
+                    Id = "4",
+                    UserName = "admin2@gmail.com",
+                    Password = "admin2",
+                    RoleId = 2
+                }
+            );
+
+            modelBuilder.Entity<Role>().HasData(
+                new Role()
+                {
+                    Id = 1,
+                    Type = "User",
+                    Describetion = "Customer"
+                },
+                new Role()
+                {
+                    Id = 2,
+                    Type = "Admin",
+                    Describetion = "Admin"
+                }
+            );
         }
     }
 }
