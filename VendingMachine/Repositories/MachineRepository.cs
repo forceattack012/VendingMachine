@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using VendingMachine.Data.Interfaces;
+using VendingMachine.Data;
 using VendingMachine.Entities;
 using VendingMachine.Repositories.Interfaces;
 
@@ -7,9 +7,9 @@ namespace VendingMachine.Repositories
 {
     public class MachineRepository : IMachineRepository
     {
-        private readonly IVendingMachineContext _vendingMachineContext;
+        private readonly VendingMachineContext _vendingMachineContext;
 
-        public MachineRepository(IVendingMachineContext vendingMachineContext)
+        public MachineRepository(VendingMachineContext vendingMachineContext)
         {
             _vendingMachineContext = vendingMachineContext;
         }
@@ -22,7 +22,9 @@ namespace VendingMachine.Repositories
 
         public async Task<IEnumerable<Machine>> GetMachinesAsync()
         {
-            return await _vendingMachineContext.Machines.ToListAsync();
+            return await _vendingMachineContext.Machines
+                    .Include(r => r.Location)
+                    .ToListAsync();
         }
     }
 }

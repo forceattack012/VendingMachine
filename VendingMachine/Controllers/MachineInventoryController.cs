@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using System.ComponentModel.DataAnnotations;
 using VendingMachine.Entities;
+using VendingMachine.Hubs;
 using VendingMachine.Models;
 using VendingMachine.Repositories.Interfaces;
 
@@ -12,10 +14,14 @@ namespace VendingMachine.Controllers
     public class MachineInventoryController : ControllerBase
     {
         private readonly IMachineInventoryRepository _machineRepository;
+        private readonly IHubContext<AdminNotificationHub> _adminHub;
+        private readonly IUserRepository _userRepository;
 
-        public MachineInventoryController(IMachineInventoryRepository machineRepository)
+        public MachineInventoryController(IMachineInventoryRepository machineRepository, IHubContext<AdminNotificationHub> adminHub, IUserRepository userRepository)
         {
             _machineRepository = machineRepository;
+            _adminHub = adminHub;
+            _userRepository = userRepository;
         }
 
         [HttpGet]
@@ -81,16 +87,19 @@ namespace VendingMachine.Controllers
             isExist.Quality -= cartItem.Quality;
 
             await _machineRepository.Update(isExist);
-            sendNotifindToAdmin(isExist.Quality);
+            await sendNotifindToAdmin(isExist.Quality, isExist);
 
             return StatusCode(201,"Buy successful");
         }
 
-        private void sendNotifindToAdmin(int qty)
+        private async Task sendNotifindToAdmin(int qty, MachineInventory machineInventory)
         {
             if(qty < 10)
             {
-                // websocket to client for admin user
+                var userAdmins = await _userRepository.GetAllAdmins();
+                var userNames = userAdmins.Select(r => r.UserName);
+
+                await _adminHub.Clients.Users(userNames).SendAsync("notificationAdmin", machineInventory);
             }
         }
     }

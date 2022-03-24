@@ -1,9 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System.Linq;
 using VendingMachine.Data;
-using VendingMachine.Data.Interfaces;
 using VendingMachine.Entities;
-using VendingMachine.Models;
 using VendingMachine.Repositories.Interfaces;
 
 namespace VendingMachine.Repositories

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using VendingMachine.Data;
-using VendingMachine.Data.Interfaces;
+using VendingMachine.Hubs;
 using VendingMachine.Repositories;
 using VendingMachine.Repositories.Interfaces;
 using VendingMachine.Services;
@@ -13,14 +13,13 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllersWithViews().AddNewtonsoftJson(options =>
+builder.Services.AddControllers().AddNewtonsoftJson(options =>
     options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
 );
 
 var connectionString = builder.Configuration["DbContextSettings:ConnectionString"];
 builder.Services.AddDbContext<VendingMachineContext>(opt => opt.UseNpgsql(connectionString));
 
-builder.Services.AddScoped<IVendingMachineContext, VendingMachineContext>();
 builder.Services.AddScoped<ILocationRepository, LocationRepository>();
 builder.Services.AddScoped<IMachineRepository, MachineRepository>();
 builder.Services.AddScoped<IMachineInventoryRepository, MachineInventoryRepository>();
@@ -46,7 +45,7 @@ builder.Services.AddAuthentication(auth =>
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JwtToken:SigningKey"]))
     };
 });
-
+builder.Services.AddSignalR();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -56,11 +55,17 @@ app.UseSwagger();
 app.UseSwaggerUI();
 
 app.UseAuthentication();
+
+
+app.UseRouting();
 app.UseAuthorization();
 
-app.UseHttpsRedirection();
-app.UseAuthorization();
-
+app.UseWebSockets();
+app.UseEndpoints(configure =>
+{
+   configure.MapHub<AdminNotificationHub>("/adminHub");
+});
 
 app.MapControllers();
+
 app.Run();

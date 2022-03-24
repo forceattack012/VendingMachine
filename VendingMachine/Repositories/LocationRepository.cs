@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using VendingMachine.Data.Interfaces;
+using VendingMachine.Data;
 using VendingMachine.Entities;
 using VendingMachine.Repositories.Interfaces;
 
@@ -7,9 +7,9 @@ namespace VendingMachine.Repositories
 {
     public class LocationRepository : ILocationRepository
     {
-        private readonly IVendingMachineContext _vendingMachineContext;
+        private readonly VendingMachineContext _vendingMachineContext;
 
-        public LocationRepository(IVendingMachineContext vendingMachineContext)
+        public LocationRepository(VendingMachineContext vendingMachineContext)
         {
             _vendingMachineContext = vendingMachineContext;
         }
