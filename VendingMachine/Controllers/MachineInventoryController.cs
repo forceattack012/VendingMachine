@@ -80,10 +80,10 @@ namespace VendingMachine.Controllers
 
             isExist.Quality -= cartItem.Quality;
 
-
+            await _machineRepository.Update(isExist);
             sendNotifindToAdmin(isExist.Quality);
 
-            return Created("localhost:4200/", "Buy successful");
+            return StatusCode(201,"Buy successful");
         }
 
         private void sendNotifindToAdmin(int qty)

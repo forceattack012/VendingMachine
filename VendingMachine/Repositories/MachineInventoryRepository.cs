@@ -39,7 +39,7 @@ namespace VendingMachine.Repositories
         public async Task<MachineInventory> GetProductByMachineInventoryIdAndProductId(string ventoryId, string productId)
         {
             return await _vendingMachineContext.MachineInventory
-                        .Where(r => r.MachineId == ventoryId && r.ProductId == productId)
+                        .Where(r => r.Id == ventoryId && r.ProductId == productId)
                         .Include(r => r.Product)
                         .FirstOrDefaultAsync();
         }

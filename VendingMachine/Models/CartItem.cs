@@ -11,7 +11,6 @@ namespace VendingMachine.Models
         public string ProductId { get; set; }
 
         [Required]
-        public string MachineInventoryId { get; set; }
         public int Quality { get; set; }
         public int Price { get; set; }
         public double Total { 
