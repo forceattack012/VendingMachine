@@ -14,6 +14,8 @@ namespace VendingMachine.Data
         public DbSet<Machine> Machines { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<MachineInventory> MachineInventory { get; set; }
+        public DbSet<User> User { get; set; }
+        public DbSet<Role> Role { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

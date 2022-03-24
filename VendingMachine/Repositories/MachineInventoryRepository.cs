@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Linq;
+using VendingMachine.Data;
 using VendingMachine.Data.Interfaces;
 using VendingMachine.Entities;
 using VendingMachine.Models;
@@ -9,9 +10,9 @@ namespace VendingMachine.Repositories
 {
     public class MachineInventoryRepository : IMachineInventoryRepository
     {
-        private readonly IVendingMachineContext _vendingMachineContext;
+        private readonly VendingMachineContext _vendingMachineContext;
 
-        public MachineInventoryRepository(IVendingMachineContext vendingMachineContext)
+        public MachineInventoryRepository(VendingMachineContext vendingMachineContext)
         {
             _vendingMachineContext = vendingMachineContext;
         }
@@ -33,6 +34,22 @@ namespace VendingMachine.Repositories
                         .Include(r => r.Product)
                         .OrderBy(r => r.MachineId)
                         .ToListAsync();
+        }
+
+        public async Task<MachineInventory> GetProductByMachineInventoryIdAndProductId(string ventoryId, string productId)
+        {
+            return await _vendingMachineContext.MachineInventory
+                        .Where(r => r.MachineId == ventoryId && r.ProductId == productId)
+                        .Include(r => r.Product)
+                        .FirstOrDefaultAsync();
+        }
+
+        public async Task<bool> Update(MachineInventory machineInventory)
+        {
+            _vendingMachineContext.MachineInventory.Update(machineInventory);
+            await _vendingMachineContext.SaveChangesAsync();
+
+            return true;
         }
     }
 }

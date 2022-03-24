@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using VendingMachine.Repositories.Interfaces;
 
 namespace VendingMachine.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class LocationController : ControllerBase
@@ -15,6 +17,7 @@ namespace VendingMachine.Controllers
             _locationRepository = locationRepository;
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public async Task<IActionResult> GetLocations()
         {
@@ -22,6 +25,7 @@ namespace VendingMachine.Controllers
             return Ok(locations);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet("machine")]
         public async Task<IActionResult> GetLocationWithMachine()
         {

@@ -9,5 +9,15 @@
         public Product Product { get; set; }
         public int Quality { get; set; }
 
+        public MachineInventory() { }
+
+        public MachineInventory(string id, string machineId, string productId,int quality)
+        {
+            Id = id;
+            MachineId = machineId;
+            ProductId = productId;
+            Quality = quality;
+        }
+
     }
 }

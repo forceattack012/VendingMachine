@@ -6,5 +6,7 @@ namespace VendingMachine.Repositories.Interfaces
     {
         Task<IEnumerable<MachineInventory>> GetMachineInventoriesAsync();
         Task<IEnumerable<MachineInventory>> GetMachineInventoriesByMachineIdAsync(string machineId);
+        Task<MachineInventory> GetProductByMachineInventoryIdAndProductId(string machineId, string productId);
+        Task<bool> Update(MachineInventory machineInventory);
     }
 }
