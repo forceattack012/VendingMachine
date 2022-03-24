@@ -1,4 +1,5 @@
-import { Component, OnInit, Output } from '@angular/core';
+import { AuthenService } from 'src/app/services/authen.service';
+import { Component, OnInit } from '@angular/core';
 import { MachineInventory } from 'src/app/models/machineInventory'
 import { ProductService } from 'src/app/services/product.service';
 
@@ -14,16 +15,19 @@ export class ProductComponent implements OnInit {
 
   inventories : MachineInventory[] = [];
 
-  constructor(private productService: ProductService) { }
+  constructor(private productService: ProductService, private authenService: AuthenService) { }
 
   async ngOnInit(): Promise<void> {
     this.inventories = await this.productService.getInventories();
-    console.log(this.inventories);
   }
 
   openSizebar(item: MachineInventory) {
     this.productService.isOpen.emit(!this.isOpen);
     this.product = item;
+  }
+
+  IsBuy(): Boolean {
+    return this.authenService.getUserRole() === '' || this.authenService.getUserRole() === 'User'
   }
 
 }

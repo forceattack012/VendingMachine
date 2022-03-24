@@ -1,5 +1,26 @@
 <header>
-  <h1 class="text-3xl font-bold underline">
-    Hello world!
-  </h1>
+  <nav class="bg-teal-200 border-solid border-b-2 border-gray-300 px-2 py-2.5 rounded">
+    <div class="container flex flex-wrap justify-between items-center mx-auto">
+      <a href="#" class="self-center text-lg font-semibond  whitespace-nowrap dark:text-white">
+        Vending Machine
+      </a>
+      <div class="hidden justify-between items-center w-full md:flex md:w-auto md:order-1" id="mobile-menu-2">
+        <ul class="flex flex-col mt-4 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium">
+          <li>
+            <div *ngIf="isAdmin()">
+              <a href="/dashboard" class="font-blod hover:text-blue-700 py-2 px-4 rounded font-sm">Location</a>
+            </div>
+          </li>
+          <li>
+            <div *ngIf="!user">
+              <a href="/login" class="font-blod hover:text-blue-700 py-2 px-4 rounded font-sm">เข้าสู่ระบบ</a>
+            </div>
+            <div *ngIf="user">
+              <a href="#" class="font-blod hover:text-blue-700 py-2 px-4 rounded font-sm">{{user.displayname}}</a>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
 </header>

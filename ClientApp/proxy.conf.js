@@ -6,9 +6,11 @@ const PROXY_CONFIG = [
   {
     context: [
       "/api",
+      "/adminHub"
    ],
     target: target,
-    secure: false
+    secure: false,
+    "ws": true
   }
 ]
 

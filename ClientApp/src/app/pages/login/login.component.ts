@@ -1,4 +1,6 @@
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
+import { AuthenService } from 'src/app/services/authen.service';
 
 @Component({
   selector: 'app-login',
@@ -7,9 +9,37 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginComponent implements OnInit {
 
-  constructor() { }
+  formLogin: FormGroup;
+
+  constructor(private formBuilder: FormBuilder, private authenService: AuthenService) {
+    this.formLogin = this.formBuilder.group({
+      userName : ['', [Validators.required]],
+      password: ['', [Validators.required, Validators.pattern('[-_a-zA-Z0-9]*')]]
+    });
+   }
 
   ngOnInit(): void {
+    this.setFormLogin();
   }
 
+  setFormLogin(): void {
+    this.formLogin = this.formBuilder.group({
+      userName : ['', [Validators.required]],
+      password: ['', [Validators.required, Validators.pattern('[-_a-zA-Z0-9]*')]]
+    });
+  }
+
+  get userName(): any {
+    return this.formLogin?.get('userName');
+  }
+
+  get password(): any {
+    return this.formLogin?.get('password');
+  }
+
+  login(): void {
+    if (this.formLogin?.valid) {
+      this.authenService.login(this.formLogin.value);
+    }
+  }
 }

@@ -1,1 +1,50 @@
-<p>dashboard works!</p>
+<div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+  <h3 class="font-medium leading-tight text-3xl mt-0 mb-2 text-blue-600 mt-5 mb-5">Locations</h3>
+  <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+      <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+          <tr>
+              <th scope="col" class="px-6 py-3">
+                  Machine Id
+              </th>
+              <th scope="col" class="px-6 py-3">
+                  Machine Name
+              </th>
+              <th scope="col" class="px-6 py-3">
+                  Product Name
+              </th>
+              <th scope="col" class="px-6 py-3">
+                  Price
+              </th>
+              <th scope="col" class="px-6 py-3">
+                  Quality
+              </th>
+              <th scope="col" class="px-6 py-3">
+                  <span class="sr-only">Buy</span>
+              </th>
+          </tr>
+      </thead>
+      <tbody *ngIf="inventories">
+          <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600" *ngFor="let item of inventories">
+            <th scope="row" class="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">
+                {{item.machineId}}
+            </th>
+            <td class="px-6 py-4">
+                {{item.machineName}}
+            </td>
+            <td class="px-6 py-4">
+              {{item.productName}}
+            </td>
+            <td class="px-6 py-4">
+                {{item.price}}
+            </td>
+            <td class="px-6 py-4">
+                {{item.quatity}}
+            </td>
+            <td class="px-6 py-4 text-right">
+                <a *ngIf="IsBuy()" href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Buy</a>
+            </td>
+          </tr>
+      </tbody>
+  </table>
+</div>
+

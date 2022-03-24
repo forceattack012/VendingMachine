@@ -18,11 +18,10 @@ export class AuthGuard implements CanActivate {
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 
       const expectedRole = route.data.expectedRole;
-      const token = localStorage.getItem('token') ?? '';
-      const tokenPayload = decode(token);
-      console.log(tokenPayload);
+      const tokenPayload = this.authenSerivce.decodeToken();
+      const role = tokenPayload['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'];
 
-      if(!this.authenSerivce.isAuthenticated() && !tokenPayload != expectedRole){
+      if(!this.authenSerivce.isAuthenticated() && !role != expectedRole){
         this.router.navigate(['login']);
         return false;
       }
