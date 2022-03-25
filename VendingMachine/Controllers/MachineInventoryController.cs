@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
+using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations;
 using VendingMachine.Entities;
 using VendingMachine.Hubs;
@@ -89,17 +90,28 @@ namespace VendingMachine.Controllers
             await _machineRepository.Update(isExist);
             await sendNotifindToAdmin(isExist.Quality, isExist);
 
-            return StatusCode(201,"Buy successful");
+            return StatusCode(201);
         }
 
         private async Task sendNotifindToAdmin(int qty, MachineInventory machineInventory)
         {
             if(qty < 10)
             {
+                var result = new MachineInventoryResponse()
+                {
+                    InventoryId = machineInventory.Id,
+                    ProductId = machineInventory.ProductId,
+                    MachineId = machineInventory.MachineId,
+                    MachineName = machineInventory.Machine.Name,
+                    Price = machineInventory.Product.Price,
+                    ProductName = machineInventory.Product.Name,
+                    Quatity = machineInventory.Quality
+                };
+
                 var userAdmins = await _userRepository.GetAllAdmins();
                 var userNames = userAdmins.Select(r => r.UserName);
-
-                await _adminHub.Clients.All.SendAsync("notificationAdmin", machineInventory);
+                string content = JsonConvert.SerializeObject(result);
+                await _adminHub.Clients.All.SendAsync("notificationAdmin", content);
             }
         }
     }

@@ -38,6 +38,7 @@ namespace VendingMachine.Repositories
             return await _vendingMachineContext.MachineInventory
                         .Where(r => r.Id == ventoryId && r.ProductId == productId)
                         .Include(r => r.Product)
+                        .Include(r => r.Machine)
                         .FirstOrDefaultAsync();
         }
 

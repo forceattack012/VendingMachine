@@ -16,6 +16,7 @@ import { AuthGuard } from './guard/auth.guard';
 import { BuyComponent } from './components/buy/buy.component';
 import { Interceptor } from './interceptor/interceptor.interceptor';
 import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
+import { LoadingComponent } from './components/loading/loading.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
     HeaderComponent,
     BuyComponent,
     LoginComponent,
-    DashboardComponent
+    DashboardComponent,
+    LoadingComponent
   ],
   imports: [
     CommonModule,
@@ -38,6 +40,7 @@ import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
     FormsModule,
     RouterModule.forRoot([
       { path: '', component: ProductComponent, pathMatch: 'full' },
+      { path: 'product', component: ProductComponent },
       { path: 'counter', component: CounterComponent },
       { path: 'fetch-data', component: FetchDataComponent },
       { path: 'login', component: LoginComponent },

@@ -24,8 +24,8 @@ export class ProductService {
   }
 
   async buy(cartItem: any) {
-    await this.httpClient.post(`/api/MachineInventory/buy`, cartItem).toPromise();
-    this.route.navigate(['/']);
+    const x = await this.httpClient.post(`/api/MachineInventory/buy`, cartItem).toPromise();
+    this.route.navigate(['/product']);
   }
 
 

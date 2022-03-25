@@ -14,9 +14,12 @@ export class AdminHubService {
   public startConnection = () => {
     const baseUrl = 'ws://localhost:5295/adminHub';
     //'ws://localhost:7000/gateway/basketHub'
-
+    const token = localStorage.getItem('token') ?? '';
     this.hubConnection = new signalR.HubConnectionBuilder()
     .withUrl(baseUrl, {
+      accessTokenFactory: () => {
+        return token;
+      },
       skipNegotiation: true,
       transport: signalR.HttpTransportType.WebSockets
     })

@@ -21,12 +21,12 @@ export class AuthGuard implements CanActivate {
       const tokenPayload = this.authenSerivce.decodeToken();
       const role = tokenPayload['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'];
 
-      if(!this.authenSerivce.isAuthenticated() && !role != expectedRole){
-        this.router.navigate(['login']);
-        return false;
+      if(this.authenSerivce.isAuthenticated() && role == expectedRole){
+        return true;
       }
 
-    return true;
+    this.router.navigate(['/']);
+    return false;
   }
 
 }

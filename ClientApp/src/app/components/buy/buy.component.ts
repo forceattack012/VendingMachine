@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
+import {  Router } from '@angular/router';
 import { MachineInventory } from 'src/app/models/machineInventory';
 import { ProductService } from 'src/app/services/product.service';
 
@@ -18,7 +19,7 @@ export class BuyComponent implements OnInit {
 
   Quality : Number[] = [];
 
-  constructor(private productService: ProductService, private formBuilder: FormBuilder) { }
+  constructor(private productService: ProductService, private formBuilder: FormBuilder, private route: Router) { }
 
   ngOnInit(): void {
     this.productService.isOpen.subscribe(open => this.isOpen = open);
@@ -47,6 +48,8 @@ export class BuyComponent implements OnInit {
   async buyItem(){
     if(this.cartItemForm.valid){
       await this.productService.buy(this.cartItemForm.value);
+      this.productService.isOpen.emit(false);
+
     }
   }
 

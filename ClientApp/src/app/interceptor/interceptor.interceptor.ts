@@ -10,14 +10,16 @@ import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { AuthenService } from '../services/authen.service';
 import { tap } from "rxjs/operators";
+import { LoadingService } from '../services/loading.service';
 
 @Injectable()
 export class Interceptor implements HttpInterceptor {
 
-  constructor(private router: Router, private authenService: AuthenService) {}
+  constructor(private router: Router, private authenService: AuthenService, private loadingService: LoadingService) {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<any>> {
     const token = localStorage.getItem('token');
+
 
     if(token !== null && this.authenService.isAuthenticated()){
       request = request.clone({
@@ -27,8 +29,11 @@ export class Interceptor implements HttpInterceptor {
         }
       })
     }
-    return next.handle(request).pipe(tap(() => {},
+    return next.handle(request).pipe(tap(() => {
+      this.loadingService.isLoading.emit(false);
+    },
       (err:any) => {
+        this.loadingService.isLoading.emit(false);
         if (err instanceof HttpErrorResponse) {
           if (err.status !== 401) {
             return;
